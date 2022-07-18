@@ -9,6 +9,7 @@
             "select-config": "select-config.js"
         }
     },
+    "keywords": ["node-red"],
     "repository": {
         "type": "git",
         "url": "https://github.com/mharsch/select-test.git"
