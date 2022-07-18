@@ -1,0 +1,17 @@
+{
+    "name" : "@mharsch/select-test",
+    "version": "0.0.1",
+    "license": "MIT",
+    "node-red" : {
+    "version": ">=2.2.0",
+        "nodes": {
+            "select-test": "select-test.js",
+            "select-config": "select-config.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mharsch/select-test.git"
+    }
+
+}

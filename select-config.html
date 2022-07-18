@@ -1,0 +1,21 @@
+<script type="text/javascript">
+    RED.nodes.registerType('select-config',{
+        category: 'config',
+        defaults: {
+            setting: {value:"default",required:true}
+        },
+        label: function() {
+            return this.setting;
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="select-config">
+    <div class="form-row">
+        <label for="node-config-input-setting"><i class="fa fa-bookmark"></i> Setting</label>
+        <select id="node-config-input-setting">
+            <option value="foo">foo</option>
+            <option value="bar">bar</option>
+        </select>
+    </div>
+</script>

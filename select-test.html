@@ -1,0 +1,93 @@
+<script type="text/javascript">
+    RED.nodes.registerType('select-test',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            selconf: {value: "", type: "select-config"},
+            setting: {value: "", required: true}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"select-test";
+        },
+        oneditprepare: function() {
+            var node = this;
+            node.prev_config_id = $("#node-input-selconf").val();
+
+            function draw_form() {
+                $('#node-input-setting').empty()
+                var config_id = $("#node-input-selconf").val()
+                if (config_id == "_ADD_") {
+                    // no config node yet
+                    $("#setting_section").hide()
+                } else {
+                    var config_node = RED.nodes.node(config_id)
+                    var config_type = config_node.setting
+                    if (config_type == "foo") {
+                        var foo_options = [
+                            {name: "foo_one", value: 1},
+                            {name: "foo_two", value: 2},
+                            {name: "foo_three", value: 3},
+                            {name: "foo_four", value: 4}
+                        ]
+                        for (var i = 0; i < foo_options.length; i++)
+                            $('#node-input-setting').append('<option value="' + foo_options[i].value + '">' + foo_options[i].name + '</option>');
+
+                    } else if (config_type = "bar") {
+                        var bar_options = [
+                            {name: "bar_ten", value: 10},
+                            {name: "bar_twenty", value: 20},
+                            {name: "bar_thirty", value: 30},
+                            {name: "bar_forty", value: 40}
+                        ]
+                        for (var i = 0; i < bar_options.length; i++)
+                            $('#node-input-setting').append('<option value="' + bar_options[i].value + '">' + bar_options[i].name + '</option>');
+                    }
+                    // search for current setting (if it exists) and select
+                    if (node.setting) {
+                        $("#setting_section select").val(node.setting)
+                    }
+                    $("#setting_section").show()
+                }
+            } //draw_form()
+
+            $("#node-input-selconf").on('focus', function() {node.prev_config_id = this.value}).change(function() {
+                // if config node selection has changed, clear our form selection and redraw the form
+                if (node.prev_config_id !== this.value) {
+                    node.setting = null
+                }
+                draw_form()
+            })
+            //$.getJSON('config_options', function(data) {
+            //    var response = data || [];
+            //});
+
+        }, // oneditprepare()
+        oneditsave: function() {
+        } // oneditsave()
+    });
+</script>
+
+<script type="text/html" data-template-name="select-test">
+    <div class="form-row">
+        <label for="node-input-selconf"><i class="icon-tag"></i> Configuration</label>
+        <input type="text" id="node-input-selconf">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row" id="setting_section">
+        <label for="node-input-setting"><i class="icon-tag"></i> Setting</label>
+        <select id="node-input-setting">
+        </select>
+    </div>
+</script>
+</script>
+
+<script type="text/html" data-help-name="lower-case">
+    <p>A simple node that tests dynamic forms based on config node selection</p>
+</script>
