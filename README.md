@@ -8,11 +8,11 @@ The select-test type node utilizes a config node (select-config aka selconf).  T
 selconf node contains one property called 'setting' which can be set to either 'foo'
 or 'bar'.
 
-The select-test node looks at it's config node and sets it's own property 'setting'
-to the selconf 'setting' value.
-
-Based on it's 'setting' value (foo or bar), the select-test node dynically builds a
+Based on the config node 'setting' value (foo or bar), the select-test node dynically builds a
 form with appropriate options relating to foo or bar respectively.
+
+The option that the user selects from the dynamic drop down list becomes the property 'setting'
+for the select-test node itself.
 
 If no config-node has been configured, the user is not shown any input form.
 
